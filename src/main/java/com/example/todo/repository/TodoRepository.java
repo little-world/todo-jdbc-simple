@@ -51,7 +51,7 @@ public class TodoRepository {
   }
 
 
-  public void save(Todo todo) {
+  public Todo save(Todo todo) {
     String sql = "INSERT INTO todo (task) VALUES (?)";
 
     try (Connection connection = dataSource.getConnection();
@@ -60,9 +60,15 @@ public class TodoRepository {
       ps.setString(1, todo.getTask());
       ps.executeUpdate();
 
+      try (ResultSet keys = ps.getGeneratedKeys()) {
+        if (keys.next()) {
+          todo.setId(keys.getLong(1));
+        }
+      }
     } catch (SQLException ex) {
       throw new RuntimeException("Failed to save todo", ex);
     }
+    return todo;
   }
 
   private Todo mapRow(ResultSet rs) throws SQLException {
