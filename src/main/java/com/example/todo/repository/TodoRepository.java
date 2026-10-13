@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class TodoRepository {
@@ -49,7 +48,6 @@ public class TodoRepository {
       throw new RuntimeException("Failed to load todos", ex);
     }
   }
-
 
   public Todo save(Todo todo) {
     String sql = "INSERT INTO todo (task) VALUES (?)";

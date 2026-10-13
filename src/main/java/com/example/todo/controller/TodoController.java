@@ -2,11 +2,9 @@ package com.example.todo.controller;
 
 import com.example.todo.model.Todo;
 import com.example.todo.repository.TodoRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Same endpoints as TodoController, backed by PlainJdbcTodoRepository instead
@@ -30,8 +28,8 @@ public class TodoController {
 
 
     @PostMapping
-    public void create(@RequestBody Todo todo) {
-         todoRepository.save(todo);
+    public Todo create(@RequestBody Todo todo) {
+        return todoRepository.save(todo);
     }
 
     @DeleteMapping("/{id}")
